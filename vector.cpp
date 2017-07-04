@@ -4,14 +4,14 @@
 using namespace std;
 vector1::vector1() :data(nullptr), size(0) {}
 
-vector1::vector1(int size) {
+vector1::vector1(size_t size) {
 
    if (size < 0)
                 throw std::runtime_error("error");
    //
    this->size = size;
 
-    data = new datatype[size];
+    data = new int[size];
 }
 
 double vector1::norma(){
@@ -21,7 +21,7 @@ double vector1::norma(){
      return sqrt(sum);
 }
 
-vector1::datatype vector1::operator[](int index) const
+int vector1::operator[](int index) const
 {
         if (index >= size)
                 throw std::runtime_error("errrrror");
@@ -29,7 +29,7 @@ vector1::datatype vector1::operator[](int index) const
     return data[index];
 }
 
-vector1::datatype & vector1::operator[](int index)
+int & vector1::operator[](int index)
 {
         if (index >= size)
                 throw std::runtime_error("errrrror");
@@ -37,9 +37,7 @@ vector1::datatype & vector1::operator[](int index)
     return data[index];
 }
 
-datatype get_data(){
-    return this->data;
-}
+
 
 vector1::~vector1()
 {
@@ -90,15 +88,16 @@ vector1::vector1(size_t size, int flag) {
    //
    this->size = size;
 
-    data = new datatype[size];
+    data = new int[size];
     if(flag!=1 && flag!=0)
-         throw std::runtime_error("error");
+         throw "error";
 
     for(int i=0; i<size; ++i)
         data[i]=flag;
+    qDebug() << "***";
 }
 
-void vector1::copy(const datatype * from, datatype * to, int size)
+void vector1::copy(const int * from, int * to, size_t size)
 {
     for (int i = 0; i < size; ++i) {
         to[i] = from[i];
@@ -108,7 +107,7 @@ void vector1::copy(const datatype * from, datatype * to, int size)
 vector1::vector1(const vector1& v)
 {
     size = v.size;
-    data = new datatype[size];
+    data = new int[size];
     copy(v.data, data, size);
 }
 

@@ -4,11 +4,12 @@
 #include <QException>
 #include <iostream>
 #include <QDebug>
-
+#include "test_vector.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+  //  test_vector::run();
     /*vector1 v1(5,1);
     vector1 v2(5,1);
     vector1 v=v1-v2;
@@ -25,7 +26,9 @@ int main(int argc, char *argv[])
     for(int i=0; i<3; ++i)
     qDebug() << v;*/
 
-//    matrix1 mat(3,1);
-    matrix1 m();
+    matrix1 m(3,1);
+    for (int i = 0; i < 3; ++i)
+        for (int j = 0; j < 3; ++j)
+            qDebug() << m.vec[i].data[j];
     return a.exec();
 }

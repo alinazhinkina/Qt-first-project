@@ -4,7 +4,7 @@ using namespace std;
 
 matrix1::matrix1():count(0), vec(nullptr) {}
 
-matrix1::matrix1(size_t count, datatype flag) {
+matrix1::matrix1(size_t count, int flag) {
 
    if (count < 0)
                 throw std::runtime_error("error");
@@ -12,8 +12,7 @@ matrix1::matrix1(size_t count, datatype flag) {
 
    vec = new vector1[count];
            for (int i = 0; i < count; ++i)
-               for (int j = 0; j < count; ++j)
-                   vec[i].data[j] = flag;
+               vec[i]=vector1(count,flag);
 }
 
 matrix1::~matrix1()

@@ -15,9 +15,10 @@ bool test_vector::construct()
     //Неверно дан флаг
     try {
         vector1 d2(1,5);
+
         assert(0);
     }
-    catch (const runtime_error &e) {
+    catch (char *s) {
         assert(1);
     }
     //Флаг не задан

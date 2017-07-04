@@ -9,7 +9,7 @@ using namespace std;
 
 class matrix1
 {
-private:
+public:
     vector1 *vec;
     size_t count;
     // Вспомогательная функция копирования массива

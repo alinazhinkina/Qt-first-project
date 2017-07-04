@@ -3,7 +3,7 @@ QT -= gui
 
 CONFIG += c++11
 
-TARGET = MyLab1
+TARGET = untitled
 CONFIG += console
 CONFIG -= app_bundle
 
@@ -11,10 +11,8 @@ TEMPLATE = app
 
 SOURCES += main.cpp \
     matrix.cpp \
-    vector.cpp \
-    J:/Indiv1/test_vector.cpp \
-    J:/Indiv1/vector.cpp \
-    test_vector.cpp
+    test_vector.cpp \
+    vector.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -29,7 +27,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 HEADERS += \
     matrix.h \
-    vector.h \
-    J:/Indiv1/test_vector.h \
-    J:/Indiv1/vector.h \
-    test_vector.h
+    test_vector.h \
+    vector.h
