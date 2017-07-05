@@ -1,10 +1,10 @@
 
 #include "vector.h"
-
+#include <QDebug>
 using namespace std;
-vector1::vector1() :data(nullptr), size(0) {}
+MyVector::MyVector() :data(nullptr), size(0) {}
 
-vector1::vector1(size_t size) {
+MyVector::MyVector(size_t size) {
 
    if (size < 0)
                 throw std::runtime_error("error");
@@ -14,14 +14,14 @@ vector1::vector1(size_t size) {
     data = new int[size];
 }
 
-double vector1::norma(){
+double MyVector::norma(){
     double sum = 0;
      for (int i=0; i<size; ++i)
          sum += abs(data[i])*abs(data[i]);
      return sqrt(sum);
 }
 
-int vector1::operator[](int index) const
+int MyVector::operator[](int index) const
 {
         if (index >= size)
                 throw std::runtime_error("errrrror");
@@ -29,7 +29,7 @@ int vector1::operator[](int index) const
     return data[index];
 }
 
-int & vector1::operator[](int index)
+int & MyVector::operator[](int index)
 {
         if (index >= size)
                 throw std::runtime_error("errrrror");
@@ -39,12 +39,17 @@ int & vector1::operator[](int index)
 
 
 
-vector1::~vector1()
+MyVector::~MyVector()
 {
+    for (int j = 0; j < size; ++j)
+         qDebug() << data[j];
+   qDebug() << "Udalenie vectora";
+    if (data)
     delete[] data;
+    qDebug() << "Vector udalen";
 }
 
-vector1 &vector1::operator+(const vector1 v)
+MyVector &MyVector::operator+(const MyVector v)
 {
         if (size != v.size) {
                 throw std::runtime_error("Error");
@@ -54,7 +59,7 @@ vector1 &vector1::operator+(const vector1 v)
         return *this;
 }
 
-vector1 &vector1::operator-(const vector1 v)
+MyVector &MyVector::operator-(const MyVector v)
 {
         if (size != v.size) {
                 throw std::runtime_error("Error");
@@ -64,13 +69,13 @@ vector1 &vector1::operator-(const vector1 v)
         return *this;
 }
 
-vector1 &vector1::operator*(double k) {
+MyVector &MyVector::operator*(double k) {
         for (int i = 0; i < size; ++i)
                 data[i] = data[i] * k;
         return *this;
 }
 
-double vector1::operator*(const vector1 &v) {
+double MyVector::operator*(const MyVector &v) {
         double sum = 0;
         if (size != v.size) {
                 throw std::runtime_error("Error");
@@ -81,7 +86,7 @@ double vector1::operator*(const vector1 &v) {
         return sum;
 }
 
-vector1::vector1(size_t size, int flag) {
+MyVector::MyVector(size_t size, int flag) {
 
    if (size < 0)
                 throw std::runtime_error("error");
@@ -94,20 +99,30 @@ vector1::vector1(size_t size, int flag) {
 
     for(int i=0; i<size; ++i)
         data[i]=flag;
-    qDebug() << "***";
+    for (int i = 0; i < size; ++i)
+           qDebug() << data[i];
 }
 
-void vector1::copy(const int * from, int * to, size_t size)
+void MyVector::copy(const int * from, int * to, size_t size)
 {
     for (int i = 0; i < size; ++i) {
         to[i] = from[i];
     }
 }
 
-vector1::vector1(const vector1& v)
+MyVector::MyVector(const MyVector& v)
 {
     size = v.size;
     data = new int[size];
     copy(v.data, data, size);
 }
 
+MyVector &MyVector::operator=(const MyVector &v){
+    if (size < v.size){
+        delete[] data;
+        data = new int[v.size];
+    }
+    size = v.size;
+    copy(v.data, data, size);
+    return *this;
+}

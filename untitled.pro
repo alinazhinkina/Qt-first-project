@@ -12,7 +12,8 @@ TEMPLATE = app
 SOURCES += main.cpp \
     matrix.cpp \
     test_vector.cpp \
-    vector.cpp
+    vector.cpp \
+    test_matrix.cpp
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -28,4 +29,5 @@ DEFINES += QT_DEPRECATED_WARNINGS
 HEADERS += \
     matrix.h \
     test_vector.h \
-    vector.h
+    vector.h \
+    test_matrix.h
