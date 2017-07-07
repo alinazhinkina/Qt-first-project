@@ -39,13 +39,14 @@ public:
     MyVector &operator*(double k);
     //Присваивания
     MyVector &operator=(const MyVector &v);
-
+    int* get_data();
+    size_t get_size();
 
     //Вспомогательная функция для конструктора копии
      void copy(const int * from, int * to, size_t size);
 
     friend class test_vector;
-friend class MyMatrix;
+    friend class MyMatrix;
 };
 
 #endif // VECTOR_H

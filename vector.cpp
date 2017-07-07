@@ -31,8 +31,8 @@ int MyVector::operator[](int index) const
 
 int & MyVector::operator[](int index)
 {
-        if (index >= size)
-                throw std::runtime_error("errrrror");
+        //if (index >= size)
+          //      throw std::runtime_error("errrrror");
         //
     return data[index];
 }
@@ -41,12 +41,10 @@ int & MyVector::operator[](int index)
 
 MyVector::~MyVector()
 {
-    for (int j = 0; j < size; ++j)
-         qDebug() << data[j];
-   qDebug() << "Udalenie vectora";
+
     if (data)
     delete[] data;
-    qDebug() << "Vector udalen";
+
 }
 
 MyVector &MyVector::operator+(const MyVector v)
@@ -99,8 +97,7 @@ MyVector::MyVector(size_t size, int flag) {
 
     for(int i=0; i<size; ++i)
         data[i]=flag;
-    for (int i = 0; i < size; ++i)
-           qDebug() << data[i];
+
 }
 
 void MyVector::copy(const int * from, int * to, size_t size)
@@ -125,4 +122,12 @@ MyVector &MyVector::operator=(const MyVector &v){
     size = v.size;
     copy(v.data, data, size);
     return *this;
+}
+
+int* MyVector::get_data(){
+    return this->data;
+}
+
+size_t MyVector::get_size(){
+    return this->size;
 }
