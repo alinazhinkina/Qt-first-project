@@ -80,7 +80,7 @@ double MyVector::operator*(const MyVector &v) {
         }
         for (int i = 0; i < size; i++)
                 sum += data[i] * v.data[i];
-        qDebug() << sum;
+       // qDebug() << sum;
         return sum;
 }
 
@@ -107,10 +107,9 @@ void MyVector::copy(const int * from, int * to, size_t size)
     }
 }
 
-MyVector::MyVector(const MyVector& v)
+MyVector::MyVector(const MyVector& v):size(v.size)
 {
-    size = v.size;
-    data = new int[size];
+    this->data = new int[size];
     copy(v.data, data, size);
 }
 

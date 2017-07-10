@@ -46,7 +46,7 @@ void MyMatrix::copyM(const MyVector * from, MyVector * const to, const size_t ii
 
 MyMatrix::MyMatrix(const MyMatrix & mat):m(mat.m),n(mat.n)
 {
-    //MyVector *vec1 = new MyVector[mat.m];
+
     this->vec = new MyVector[mat.m];
     for (int k = 0; k < mat.m; ++k)
         vec[k]=MyVector(mat.n,0);
@@ -113,6 +113,8 @@ MyMatrix &MyMatrix::operator*(MyMatrix &mat){
     for (int i = 0; i < m; ++i)
         for (int j = 0; j < n; ++j)
             out[i][j] = vec[i] * mat.vec[j];
+   // qDebug() << "operator * out";
+   // cout << out;
     return out;
 }
 
@@ -164,23 +166,23 @@ MyVector MyMatrix::get_vec(){
 }
 
 bool operator==( MyMatrix &m1, MyMatrix &m2){
-if (m1.get_vec().get_size() != m2.get_vec().get_size()) {
+    if (m1.get_vec().get_size() != m2.get_vec().get_size()) {
     throw domain_error("Error");
-}
-bool k = true;
-int i = 0;
-while (k && i < m1.get_vec().get_size()){
-      if (abs(m1.get_vec().get_data()[i] - m2.get_vec().get_data()[i]) < precision) {
+    }
+    bool k = true;
+    int i = 0;
+    while (k && i < m1.get_vec().get_size()){
+    if (abs(m1.get_vec().get_data()[i] - m2.get_vec().get_data()[i]) < precision) {
          ++i;
-}
-else
-          k = false;
-}
-return k;
+    }
+    else
+        k = false;
+    }
+    return k;
 }
 
 bool operator!=(MyMatrix &m1, MyMatrix &m2){
-return !(m1 == m2);
+    return !(m1 == m2);
 }
 
 double determinant(MyMatrix &a, size_t z){
@@ -188,9 +190,6 @@ double determinant(MyMatrix &a, size_t z){
 
 }*/
 
-  //  MyVector *b = new MyVector[z];
-  //  for (int i = 0; i < z; i++)
-   //     b[i] = MyVector(z,0);
    MyMatrix b(z,z,0);
     if (z == 1) return a[0][0];
 
@@ -254,14 +253,16 @@ QTextStream &operator<<(QTextStream &os, const MyMatrix &m){
     return os;
 }
 
-std::istream &operator>>(std::istream &is, const MyMatrix &m){
+std::istream &operator>>(std::istream &is, MyMatrix &m){
     for (int i = 0; i < m.m; ++i)
-        for (int j = 0; j < m.n; ++j)
-                        is >> m[i][j];
+        for (int j = 0; j < m.n; ++j){
+            qDebug() << "Input an element";
+            is >> m[i][j];
+        }
     return is;
 }
 
-QTextStream &operator>>(QTextStream &is, const MyMatrix &m){
+QTextStream &operator>>(QTextStream &is, MyMatrix &m){
     for (int i = 0; i < m.m; ++i)
                    for (int j = 0; j < m.n; ++j)
                         is >> m[i][j];
@@ -275,7 +276,7 @@ double cofactor(MyMatrix &a, size_t m, size_t n){
     delete_column(a, m, n);
     b = a;
     double s;
-    cout << b;
+   // cout << b;
     if ((m + n) %2 == 0)
         s = determinant(b, b.m);
     else
@@ -285,14 +286,27 @@ double cofactor(MyMatrix &a, size_t m, size_t n){
 
 MyMatrix inverse(MyMatrix &a){
     double p = determinant(a, a.m);
-    MyMatrix r(a.m, a.n, 0);
+    MyMatrix r(a.n, a.m, 0);
     if (p){
         MyMatrix d(a.m, a.n, 0);
-        for (int i = 0; i < a.m; ++i)
-            for (int j = 0; j < a.n; ++j)
-                d[i][j]=cofactor(a, i, j);
+        for (int i = -1; i < a.m-1; ++i)
+            for (int j = -1; j < a.n-1; ++j){
+                d[i][j]=cofactor(a, i+1, j+1);
+                //qDebug() << d[i][j];
+            }
         transposition(d);
-        r = d * (1/p);
+        r = d * (1 / p);
     }
     return r;
+}
+
+bool check(MyMatrix &m1, MyMatrix &m2){
+  //  if (m1.n != m2.m) {
+      //      throw std::runtime_error("Error");
+    //}
+    MyMatrix E(m1.m, m2.n, 1);
+    MyMatrix out(m1.m, m2.n, 1);
+    out = m1 * m2;
+    cout << out;
+    return out == E;
 }

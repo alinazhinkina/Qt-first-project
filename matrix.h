@@ -40,12 +40,13 @@ public:
     friend class test_matrix;
     //Присваивания
     MyMatrix &operator=(const MyMatrix &m);
-    friend bool operator==(MyMatrix &v1, MyMatrix &v2);
-    friend bool operator!=(MyMatrix &v1, MyMatrix &v2);
+    friend bool operator==(MyMatrix &m1, MyMatrix &m2);
+    friend bool operator!=(MyMatrix &m1, MyMatrix &m2);
     friend double determinant(MyMatrix &a, size_t z);
     friend void delete_column(MyMatrix &a, size_t m, size_t n);
     friend double cofactor(MyMatrix &a, size_t m, size_t n);
     friend MyMatrix inverse(MyMatrix &a);
+    friend bool check(MyMatrix &m1, MyMatrix &m2);
 };
 std::ostream &operator<<(std::ostream &os, const MyMatrix &m);
 QTextStream &operator<<(QTextStream &os, const MyMatrix &m);
